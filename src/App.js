@@ -44,11 +44,39 @@ class App extends Component {
     console.log(updatedTodoList);
   }
 
+  handleTodoDelete = (id) => {
+    console.log(`The item with id of ${id} is marked for deletion.`);
+    
+    const fillteredTodoItems = this.state.todoItems.filter( ( item ) => item.id !== id );
+
+    this.setState({
+      todoItems: fillteredTodoItems
+    })
+
+  }
+
   clearTodoListOnClick = () => {
     console.log("Button Clicked");
     this.setState({
       todoItems: []
     });
+  }
+
+  handleEditButton = (id) => {
+    console.log("edit icon clicked");
+
+    const fillteredTodoItems = this.state.todoItems.filter( ( item ) => item.id !== id );
+
+    const selectedItem = this.state.todoItems.find( (item) => item.id === id );
+    console.log(selectedItem, "From selected Item")
+    
+    this.setState({
+      todoItems: fillteredTodoItems,
+      todo: selectedItem.todo,
+      editItem: true,
+      id: id,
+    })
+
   }
 
   render() {
@@ -61,10 +89,13 @@ class App extends Component {
               todo={this.state.todo} 
               getFormInput={this.getFormInput}
               addInputToListOnSubmit={this.addInputToListOnSubmit}
+              editItem={this.state.editItem}
             />
             <ToDoList 
               todoItems={this.state.todoItems} 
               clearTodoListOnClick={this.clearTodoListOnClick}
+              handleTodoDelete={this.handleTodoDelete}
+              handleEditButton={this.handleEditButton}
             />
           </div>
         </div>

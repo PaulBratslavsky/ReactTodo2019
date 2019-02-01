@@ -4,7 +4,7 @@ import TodoItem from '../ToDoItem';
 class ToDoList extends Component {
     render() {
 
-        const {todoItems, clearTodoListOnClick} = this.props;
+        const { todoItems, clearTodoListOnClick, handleTodoDelete, handleEditButton } = this.props;
 
         return (
             <ul className="list-group my-5">
@@ -12,7 +12,13 @@ class ToDoList extends Component {
                 
                 {todoItems.map( item => {
                     return(
-                        <TodoItem key={item.id} todo={item.todo}/>
+                        <TodoItem 
+                            key={item.id} 
+                            todo={item.todo}  
+                            id={item.id} 
+                            handleTodoDelete={handleTodoDelete}
+                            handleEditButton={handleEditButton}
+                        />
                     );
                 })}
                 
